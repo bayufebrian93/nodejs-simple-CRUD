@@ -11,25 +11,43 @@ const getAllUsers = async(req, res) => {
         res.status(500).json({
             message: 'server error',
             serverMessage: err
-        })
+        });
     }
 }
 
-const createUser = (req, res) => {
-    console.log(req.body);
-    res.json({
-        message: 'create user sucess',
-        data: req.body
-    })
+const createUser = async(req, res) => {
+    const { body } = req;
+    console.log(body);
+    try {
+        await UsersModel.createNewUser(body);
+        res.json({
+            message: 'create user sucess',
+            data: body
+        })
+    } catch(err) {
+        res.status(500).json({
+            message: 'server error',
+            serverMessage: err
+        });
+    }
 }
 
-const updateUser = (req, res) => {
-    console.log(req.params, req.body);
+const updateUsers = async(req, res) => {
     const {id} = req.params;
-    res.json({
-        message: 'Update User Success',
-        data: req.body
-    })
+    const {body} = req;
+
+    try {
+        await UsersModel.updateUser(body, id);
+        res.json({
+            message: 'Update User Success',
+            data: {id: id, ...body}
+        })
+    } catch(err) {
+        res.status(500).json({
+            message: 'Update server error',
+            serverMessage: err
+        });
+    }
 }
 
 const deleteUser = (req, res) => {
@@ -43,5 +61,5 @@ const deleteUser = (req, res) => {
 }
 
 module.exports = {
-    getAllUsers, createUser, updateUser, deleteUser
+    getAllUsers, createUser, updateUsers, deleteUser
 }

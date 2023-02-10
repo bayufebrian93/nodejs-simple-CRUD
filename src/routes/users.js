@@ -10,7 +10,7 @@ router.post('/', UserCtrl.createUser);
 router.get('/', UserCtrl.getAllUsers);
 
 // Update
-router.patch('/:id', UserCtrl.updateUser);
+router.patch('/:id', UserCtrl.updateUsers);
 
 // Delete
 router.delete('/:id', UserCtrl.deleteUser);
