@@ -19,7 +19,7 @@ const createUser = async(req, res) => {
     const { body } = req;
     try {
         await UsersModel.createNewUser(body);
-        console.log("berhasil create", req, res);
+        console.log("berhasil create", res);
         res.status(201).json({
             message: 'create user sucess',
             data: body
